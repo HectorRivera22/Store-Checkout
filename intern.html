@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
@@ -16,16 +15,20 @@
     </div>
     <div class="scan-quantity">
         <p>Quantity:</p>
-        <input type="text">
+        <input type="text" id="quantity">
     </div>
-        <input class="button" type="submit" value="Add to Cart">
+        <input class="button" type="submit" value="Add to Cart" id="add_item">
         <h2>Cart</h2>
-    <div class="cart">
+    <div class="cart" id="storing_box">
         <h4>Iteam</h4>
         <h4>Price</h4>
         <h4>Qautity</h4>
     </div>
-    <p>Total:</p>
-         
+    <div id="itemContainer" style="border: 1px solid red">
+     </div>
+    <p id="total">Total</p>
+     <input class="button" type="submit" value="Checkout" id="Checkout">
+     <p id="grand_total">Grand Total</p>
+   
 </body>
 </html>
