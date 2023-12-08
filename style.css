@@ -26,14 +26,9 @@ input{
     height:20px
 }
 
-*{
-    border: 1px solid black ;
-}
-
 .list{
     display: flex;
     flex-direction: row;
-    border: 1px sold red;
     justify-content: space-around;
     
 }

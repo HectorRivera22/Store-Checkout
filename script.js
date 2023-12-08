@@ -2,8 +2,11 @@ const barcode = document.getElementById("barcode")
 const quantity = document.getElementById("quantity")
 const add_item = document.getElementById("add_item")
 const total = document.getElementById("total")
+let currentTotal = 0 
 const itemContainer = document.getElementById("itemContainer")
 const grand_total = document.getElementById("grand_total")
+const checkout = document.getElementById("Checkout")
+const statusText = document.getElementById("statusText")
 const items ={
     "689145740844":{
         name:"JavaScript Textbook",
@@ -67,22 +70,61 @@ function checkitem(){
     let barcodeNum = barcode.value;
     if(items.hasOwnProperty(barcodeNum)){
         let item = items[barcodeNum];
+        let quantityNum = quantity.value
+        let itemFromCart = checkCart(item)
+        if(itemFromCart){
+            let itemInCartQuantity = itemFromCart.querySelector(".itemQuantity")
+            let newQuantity = quantityNum
+            itemInCartQuantity.innerText = parseInt(itemInCartQuantity.innerText) + parseInt(newQuantity)
+            console.log("found diplictae")
+            let newTotal = parseFloat(item.price) * parseFloat(quantityNum);
+            currentTotal += newTotal
+            total.innerText = "Total $" + currentTotal;
+            console.log(total.innerText)
+            return;
+        }
         let itemName = document.createElement("p")
+        itemName.classList.add("itemName")
         itemName.innerText = item.name;
         let itemPrice = document.createElement("p")
         itemPrice.innerText = item.price;
-         let quantityNum = quantity.value
+         
          let itemQuantity = document.createElement("p")
+         itemQuantity.classList.add("itemQuantity")
          itemQuantity.innerText = quantityNum;
          let storing_box = document.createElement("div")
          storing_box.classList.add("list")
-         storing_box.style.border= "7px solid red;"
          storing_box.appendChild(itemName)
          storing_box.appendChild(itemPrice)
          storing_box.appendChild(itemQuantity)
          itemContainer.appendChild(storing_box)
-        //  itemContianer.classList.add("list")
+        //itemContianer.classList.add("list")
+        let newTotal = parseFloat(item.price) * parseFloat(quantityNum);
+        currentTotal += newTotal
+        console.log(newTotal)
+        total.innerText = "Total $" + currentTotal.toFixed(2);
     }
+    else{
+        statusText.innerText = "Does not exist";
+    }
+
 }
 
 add_item.addEventListener("click", checkitem)
+
+function displayGrandTotal(){
+    let grandTotal = currentTotal * 1.0925;
+    grand_total.innerText = "Grand Total $" + grandTotal.toFixed(2);
+}
+
+checkout.addEventListener("click", displayGrandTotal)
+
+function checkCart(itemInfo){
+    let itemsInCart = document.querySelectorAll(".list")
+    for(var i = 0 ; i  < itemsInCart.length ; i++){
+        let itemInCartName = itemsInCart[i].querySelector(".itemName")
+        if(itemInfo.name === itemInCartName.innerText){
+            return itemsInCart[i]
+        }
+    }
+}
